@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Vpaath Demo</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="emr-container">
+        <h1>VPAATH API - Electronic Medical Record</h1>
+
+        <!-- Member Info Section -->
+        <div id="memberInfo" class="emr-section">
+            <h2>Member Information</h2>
+            <div class="emr-field">
+                <div class="emr-label">Email:</div>
+                <div class="emr-value" id="memberEmail">chan2242@umn.edu</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Current Zip Code:</div>
+                <input type="text" id="zipcodeInput" class="input-field" value="55419" disabled>
+                <button id="editZip" class="button">Edit</button>
+                <button id="saveZip" class="button save">Save</button>
+            </div>
+        </div>
+
+        <!-- Non-Editable Dummy EMR Data -->
+
+        <!-- Patient Information Section -->
+        <div class="emr-section">
+            <h2>Patient Information</h2>
+            <div class="emr-field">
+                <div class="emr-label">Patient Name:</div>
+                <div class="emr-value">John Doe</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Date of Birth:</div>
+                <div class="emr-value">01/15/1985</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Gender:</div>
+                <div class="emr-value">Male</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Blood Type:</div>
+                <div class="emr-value">O+</div>
+            </div>
+        </div>
+
+        <!-- Medical History Section -->
+        <div class="emr-section">
+            <h2>Medical History</h2>
+            <div class="emr-field">
+                <div class="emr-label">Known Conditions:</div>
+                <div class="emr-value">Type 2 Diabetes, Hypertension</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Allergies:</div>
+                <div class="emr-value">Penicillin</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Surgeries:</div>
+                <div class="emr-value">Appendectomy (2015)</div>
+            </div>
+        </div>
+
+        <!-- Current Medications Section -->
+        <div class="emr-section">
+            <h2>Current Medications</h2>
+            <div class="emr-field">
+                <div class="emr-label">Metformin:</div>
+                <div class="emr-value">500mg, twice daily</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Lisinopril:</div>
+                <div class="emr-value">10mg, once daily</div>
+            </div>
+        </div>
+
+        <!-- Lab Results Section -->
+        <div class="emr-section">
+            <h2>Recent Lab Results</h2>
+            <div class="emr-field">
+                <div class="emr-label">Hemoglobin A1c:</div>
+                <div class="emr-value">7.8% (08/12/2024)</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Cholesterol:</div>
+                <div class="emr-value">210 mg/dL (08/12/2024)</div>
+            </div>
+            <div class="emr-field">
+                <div class="emr-label">Blood Pressure:</div>
+                <div class="emr-value">135/85 mmHg (08/12/2024)</div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="sdoh-data" id="sdohDataBox">
+        <h3>Vpaath SDOH Data</h3>
+        <div id="result" class="emr-section"></div>
+    </div>
+</body>
+</html>
