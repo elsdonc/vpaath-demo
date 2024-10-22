@@ -1,3 +1,9 @@
+const email = "yourEmail";
+const password = "yourPassword";
+const tokenUrl = "https://vpaath.com/oauth/token.json";
+const calcUrl = "https://vpaath.com/vpaath_calc.json";
+
+
 document.getElementById("saveZip").addEventListener("click", function () {
   fetchData();
 });
@@ -22,11 +28,6 @@ saveZipButton.addEventListener('click', function() {
 });
 
 const fetchData = () => {
-  // Replace these with your login details
-  const email = "yourEmail";
-  const password = "yourPassword";
-  const tokenUrl = "https://vpaath.com/oauth/token.json";
-  const calcUrl = "https://vpaath.com/vpaath_calc.json";
 
   // First step: get the access token
   fetch(tokenUrl, {
