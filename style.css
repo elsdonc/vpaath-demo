@@ -20,7 +20,7 @@ h1 {
     margin-bottom: 20px;
 }
 .emr-section h2 {
-    color: #666;
+    color: #800000;
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
 }
@@ -55,10 +55,20 @@ h1 {
     display: none;
 }
 
+#address2, #zipcodeInput {
+    display: inline-block; /* Keep them on the same line */
+    vertical-align: middle; /* Aligns them vertically */
+}
+
+#zipcodeInput {
+    margin-left: 10px; /* 10 pixels to the right of "Minneapolis, MN" */
+}
+
+
 /* New SDOH Data Box */
 .sdoh-data {
     position: absolute;
-    top: 20px;
+    top: 100px;
     right: 20px;
     width: 300px;
     padding: 15px;
