@@ -125,7 +125,7 @@
 
             if (selectedText) {
                 const searchQuery = encodeURIComponent(selectedText);  // Encode the text for URL use
-                const url = `https://www.google.com/search?q=${searchQuery}`;  // Construct the search URL
+                const url = `https://www.google.com/maps/search/${searchQuery}`;  // Construct the search URL
                 window.open(url, '_blank');  // Open a new tab with the search query
             }
         }
