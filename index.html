@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Vpaath Demo</title>
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
 </head>
 <body>
     <div class="emr-container">
@@ -26,15 +26,6 @@
                 <button id="saveZip" class="button save" style="display: none;">Save</button>
             </div>
 
-
-            <!--<div class="emr-field">
-
-            <input type="text" id="zipcodeInput" class="input-field" value="55419" disabled>
-            <button id="editZip" class="button">Edit</button>
-            <button id="saveZip" class="button save">Save</button>
-        </div>
-    </div>  -->
-
             <!-- Non-Editable Dummy EMR Data -->
             <!-- Patient Information Section -->
             <div class="emr-section">
@@ -45,7 +36,7 @@
                     <div class="emr-value">01/15/1985</div>
                 </div>
                 <div class="emr-label">Email:</div>
-                <div class="emr-value" id="memberEmail">chan2242@umn.edu</div>
+                <div class="emr-value" id="memberEmail">doe000@umn.edu</div>
                 <div class="emr-field">
                     <div class="emr-label">Gender:</div>
                     <div class="emr-value">Male</div>
@@ -105,8 +96,39 @@
 
         </div>
     <div class="sdoh-data" id="sdohDataBox">
+        <div id="loadingIndicator" class="loading" style="display: none;">
+            Loading resources...
+            <div class="spinner"></div>
+        </div>
+        <div class="resources">
+            <div id="diabetes-resources-container" style="display: none;">
+                <label for="diabetes-resources" class="emr-label">Diabetes Resources:</label>
+                <select id="diabetes-resources" class="input-field" onchange="openSearchTab()">
+                    <option value="" disabled selected>View Resources</option>
+                </select>
+            </div>
+            <div id="cvd-resources-container" style="display: none;" onchange="openSearchTab()">
+                <label for="cvd-resources" class="emr-label">Cardiovascular Disease Resources:</label>
+                <select id="cvd-resources" class="input-field">
+                    <option value="" disabled selected>View Resources</option>
+                </select>
+            </div>
+        </div>
         <h3>VPAATH SDOH Data</h3>
-        <div id="result" class="emr-section"></div>
+        <div id="result" class="emr-section"><div class="emr-field">
+        </div>
     </div>
+    <script>
+        function openSearchTab() {
+            const select = event.target;  // 'event.target' points to the select element that triggered the event
+            const selectedText = select.options[select.selectedIndex].textContent;  // Access the selected option's text
+
+            if (selectedText) {
+                const searchQuery = encodeURIComponent(selectedText);  // Encode the text for URL use
+                const url = `https://www.google.com/search?q=${searchQuery}`;  // Construct the search URL
+                window.open(url, '_blank');  // Open a new tab with the search query
+            }
+        }
+    </script>
 </body>
 </html>

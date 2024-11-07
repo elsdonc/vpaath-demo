@@ -1,8 +1,9 @@
-const email = "jdweber81@gmail.com";
-const password = "MayaEllie1!";
+import { fetchResources } from './fetchResources.js';
+import { EMAIL, PASSWORD } from "./config.js";
+const email = EMAIL;
+const password = PASSWORD;
 const tokenUrl = "https://vpaath.com/oauth/token.json";
 const calcUrl = "https://vpaath.com/vpaath_calc.json";
-
 
 document.getElementById("saveZip").addEventListener("click", function () {
   fetchData();
@@ -33,22 +34,6 @@ zipcodeInput.addEventListener('input', function () {
 
 // Hide the 'Save' button since we're auto-saving
 saveZipButton.style.display = 'none';
-
-
-//let editZipButton = document.getElementById('editZip');
-//let saveZipButton = document.getElementById('saveZip');
-
-//editZipButton.addEventListener('click', function() {
- // zipcodeInput.disabled = false;
- // editZipButton.style.display = 'none';
-  //saveZipButton.style.display = 'inline-block';
-//});
-
-//saveZipButton.addEventListener('click', function() {
- // zipcodeInput.disabled = true;
- // editZipButton.style.display = 'inline-block';
- // saveZipButton.style.display = 'none';
-//});
 
 const fetchData = () => {
 
@@ -156,15 +141,39 @@ const fetchData = () => {
                 <div class="emr-label">Diabetes Risk Score:</div>
                 <div class="emr-value">${formatScore(result.zipcode.diabetes.score)} ${getRiskLabelAndColor(result.zipcode.diabetes.score)}</div>
             </div>
+             <div class="emr-field">
+                <div class="emr-label">Cardiovascular Disease Risk Score:</div>
+                <div class="emr-value">${formatScore(result.zipcode.cvd.score)} ${getRiskLabelAndColor(result.zipcode.cvd.score)}</div>
+            </div>
             <div class="emr-field">
                 <div class="emr-label">ER Admission Risk:</div>
                 <div class="emr-value">${formatScore(result.zipcode.er_visit.score)} ${getRiskLabelAndColor(result.zipcode.er_visit.score)}</div>
             </div>
             `;
+
+            // fetch resources if at risk
+            if (result.zipcode.diabetes.score > 10) {
+                fetchResources("Diabetes", result.zipcode.name);
+            } else {
+                const diabetesDropdownContainer = document.getElementById("diabetes-resources-container");
+                if (diabetesDropdownContainer != null) {
+                    diabetesDropdownContainer.style.display = "none";
+                }
+            }
+
+            if (result.zipcode.cvd.score > 10) {
+                fetchResources("Cardiovascular Disease", result.zipcode.name);
+            } else {
+                const cvdDropdownContainer = document.getElementById("cvd-resources-container");
+                if (cvdDropdownContainer != null) {
+                    cvdDropdownContainer.style.display = "none";
+                }
+            }
+
         })
             .catch((error) => {
                 document.getElementById("result").textContent = "Error fetching data: " + error;
-            });
+            })
     })
         .catch((error) => {
             document.getElementById("result").textContent = "Error fetching token: " + error;

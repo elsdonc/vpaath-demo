@@ -86,3 +86,37 @@ h1 {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+#diabetes-resources-container a, #cvd-resources a {
+    display: block;
+    overflow: hidden;
+    padding: 5px;
+    text-decoration: none;
+    color: #007BFF;
+}
+#diabetes-resources, #cvd-resources {
+    width: 100%;
+}
+.loading {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #007BFF; /* Spinner color */
+    width: 20px; /* Spinner size */
+    height: 20px; /* Spinner size */
+    animation: spin 1s linear infinite; /* Animation */
+    margin-left: 10px; /* Space between text and spinner */
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.resources {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 15px;
+}
