@@ -64,11 +64,15 @@ h1 {
     margin-left: 10px; /* 10 pixels to the right of "Minneapolis, MN" */
 }
 
+/* Download Report Button */
+#downloadReport {
+    position: absolute;
+}
 
 /* New SDOH Data Box */
 .sdoh-data {
     position: absolute;
-    top: 100px;
+    top: 150px;
     right: 20px;
     width: 300px;
     padding: 15px;
