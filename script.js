@@ -371,18 +371,18 @@ document.getElementById("downloadReport").addEventListener("click", async () => 
             const result = await fetchData(member.zipcode);
             // Add the member details and fetchData result to the results array
             results.push({
-                Name: member.name,
-                Address: member.address,
-                City: member.city,
-                State: member.state,
-                DOB: member.dob,
-                Gender: member.gender,
-                Zipcode: member.zipcode,
-                Overall: result.zipcode.overall_sdoh.score,
-                Risk_For_High_Cost_High_Utilization: result.zipcode.high_utilizer.score,
-                Diabetes_Risk_Score: result.zipcode.diabetes.score,
-                Cardiovascular_Disease_Risk_Score: result.zipcode.cvd.score,
-                ER_Admission_Risk_Score: result.zipcode.er_visit.score
+                "Name": member.name,
+                "Address": member.address,
+                "City": member.city,
+                "State": member.state,
+                "DOB": member.dob,
+                "Gender": member.gender,
+                "Zipcode": member.zipcode,
+                "Overall SDOH Score": result.zipcode.overall_sdoh.score,
+                "Risk for High Cost High Utilization": result.zipcode.high_utilizer.score,
+                "Diabetes Risk Score": result.zipcode.diabetes.score,
+                "Cardiovascular Disease Risk Score": result.zipcode.cvd.score,
+                "ER Admission Risk Score": result.zipcode.er_visit.score
             });
         } catch (error) {
             console.error(`Error processing member ${member.name}:`, error);
