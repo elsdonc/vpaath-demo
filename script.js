@@ -358,36 +358,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // write a report to excel file
 document.getElementById("downloadReport").addEventListener("click", async () => {
-    function writeToExcel(data) {
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Results");
-        XLSX.writeFile(workbook, "MemberDataResults.xlsx");
-    }
+    const response = await fetch('/assets/report.xlsm');
+    const arrayBuffer = await response.arrayBuffer();
+    const workbook = XLSX.read(arrayBuffer, { bookVBA: true });
 
-    const results = [];
-    for (const member of members) {
-        try {
-            const result = await fetchData(member.zipcode);
-            // Add the member details and fetchData result to the results array
-            results.push({
-                "Name": member.name,
-                "Address": member.address,
-                "City": member.city,
-                "State": member.state,
-                "DOB": member.dob,
-                "Gender": member.gender,
-                "Zipcode": member.zipcode,
-                "Overall SDOH Score": result.zipcode.overall_sdoh.score,
-                "Risk for High Cost High Utilization": result.zipcode.high_utilizer.score,
-                "Diabetes Risk Score": result.zipcode.diabetes.score,
-                "Cardiovascular Disease Risk Score": result.zipcode.cvd.score,
-                "ER Admission Risk Score": result.zipcode.er_visit.score
-            });
-        } catch (error) {
-            console.error(`Error processing member ${member.name}:`, error);
-        }
-    }
+    // extract the VBA project
+    const vbaBlob = workbook.vbaraw;
 
-    writeToExcel(results);
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+
+    const range = XLSX.utils.decode_range(worksheet['!ref']);
+    const startRow = range.e.r + 1;
+
+    // add members to the table
+    members.forEach((member, index) => {
+        worksheet[`A${startRow + index}`] = { v: member.name };
+        worksheet[`B${startRow + index}`] = { v: member.zipcode };
+    });
+
+    // update the range to include the new data
+    worksheet['!ref'] = XLSX.utils.encode_range({
+        s: range.s,
+        e: { c: range.e.c, r: startRow + members.length - 1 },
+    });
+
+    workbook.vbaraw = vbaBlob;
+
+    // save the updated workbook
+    const newFile = XLSX.write(workbook, { bookType: 'xlsm', type: 'binary' });
+    const blob = new Blob([s2ab(newFile)], { type: 'application/vnd.ms-excel.sheet.macroEnabled.12' });
+    saveAs(blob, 'report.xlsm');
+
+    // convert string to array buffer
+    function s2ab(s) {
+        const buf = new ArrayBuffer(s.length);
+        const view = new Uint8Array(buf);
+        for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
 });
