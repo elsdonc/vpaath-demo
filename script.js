@@ -373,8 +373,8 @@ document.getElementById("downloadReport").addEventListener("click", async () => 
 
     // add members to the table
     members.forEach((member, index) => {
-        worksheet[`A${startRow + index}`] = { v: member.name };
-        worksheet[`B${startRow + index}`] = { v: member.zipcode };
+        worksheet[`D${startRow + index}`] = { v: member.name };
+        worksheet[`E${startRow + index}`] = { v: member.zipcode };
     });
 
     // update the range to include the new data
