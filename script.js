@@ -15,13 +15,32 @@ function isValidZip(zip) {
     return /^\d{5}$/.test(zip);
 }
 
+// track which member tab we're on
+let selectedMemberId = null;
+document.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+        selectedMemberId = parseInt(tab.getAttribute("data-member-id"), 10);
+    });
+});
+
 // Listen for changes in the ZIP code input
-zipcodeInput.addEventListener("input", async function () {
-    // If ZIP code is 5 digits, trigger the save action automatically
-    if (isValidZip(document.getElementById("zipcodeInput")).value) {
-        const data = await fetchData(document.getElementById("zipcodeInput").value);
-        updateSDOHDataBox(data);
-    }
+let debounceTimeout;
+document.getElementById("zipcodeInput").addEventListener("input", function () {
+    const zipInput = this.value;
+
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(async () => {
+        if (isValidZip(zipInput)) {
+            const data = await fetchData(zipInput);
+            updateSDOHDataBox(data);
+            if (selectedMemberId !== null) {
+                const member = members.find((m) => m.id === selectedMemberId);
+                if (member) {
+                    member.zipcode = zipInput;
+                }
+            }
+        }
+    }, 300);
 });
 
 const fetchData = async (ZIPCODE) => {
